@@ -1,21 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br" ng-app="helloWorld">
+<html lang="pt-br" ng-app="listaTelefonica">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World com AngularJS</title>
-    <script src="angular.js"></script>
-    <script>
-        angular.module("helloWorld",[]); //Criar módulos
-        angular.module("helloWorld").controller("helloWorldCtrl",function($scope){
-            $scope.message = "Hello World!";
-        }) //(angular.module("helloWorld").) Localiza um módulo
-    </script>
+    <title>Lista telefônica com AngularJS</title>  
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">  
+    <script src="angular/angular.js"></script>
+    <script src="script.js"></script>    
 </head>
-<body>
-   <div ng-controller="helloWorldCtrl">
-       {{message}}
-   </div> 
+<body ng-controller="listaTelefonicaCtrl">
+    <div class="jumbotron">
+        <h3>{{app + " do AngularJs"}}</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+            </tr>
+            <tr ng-repeat="contato in contatos">
+                <td ng-repeat="(key,value) in contato">{{value}}</td>                
+                <!-- <td>{{contato.nome}}</td>
+                <td>{{contato.telefone}}</td> -->
+            </tr>
+        </table>
+        <hr>
+        <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome">
+        <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone">
+        <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+    </div>
 </body>
 </html>
