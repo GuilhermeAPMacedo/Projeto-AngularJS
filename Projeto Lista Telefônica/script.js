@@ -1,17 +1,17 @@
 angular.module("listaTelefonica",["ngMessages"]);
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope){
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope, $filter){
     $scope.app = "Lista Telefonica";
     $scope.contatos = [
-        {nome:"Pedro",telefone:"99998888", operadora:{nome: "Vivo"},cor:{codigo: "Yellow"}},
-        {nome:"Maria",telefone:"88888888", operadora:{nome: "Tim"},cor:{codigo: "blue"}},
-        {nome:"João",telefone:"88887777", operadora:{nome: "Claro"},cor:{codigo: "Green"}}
+        {nome:$filter('uppercase')("Pedro"),telefone:"9999-8888", data: new Date(), operadora:{nome: "Vivo"},cor:{codigo: "Yellow"}},
+        {nome:$filter('lowercase')("Maria"),telefone:"8888-8888", data: new Date(), operadora:{nome: "Tim"},cor:{codigo: "blue"}},
+        {nome:"João",telefone:"8888-7777", data: new Date(), operadora:{nome: "Claro"},cor:{codigo: "Green"}}
     ];
     $scope.operadoras = [
-        {nome:"Oi",codigo:14,categoria:"Celular"},
-        {nome:"Vivo",codigo:15,categoria:"Celular"},
-        {nome:"Tim",codigo:16,categoria:"Celular"},
-        {nome:"Claro",codigo:17,categoria:"Fixo"},
-        {nome:"Net",codigo:18,categoria:"Fixo"}
+        {nome:"Oi",codigo:14,categoria:"Celular", preco:"2"},
+        {nome:"Vivo",codigo:15,categoria:"Celular", preco:"3"},
+        {nome:"Tim",codigo:16,categoria:"Celular", preco:"1"},
+        {nome:"Claro",codigo:17,categoria:"Fixo", preco:"2"},
+        {nome:"Net",codigo:18,categoria:"Fixo", preco:"3"}
     ];
     $scope.cores = [
         {nome:"Azul",codigo:"#0000FF"},
@@ -35,5 +35,9 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($sco
         return contatos.some(function(contato){
             return contato.selecionado;
         })
+    }
+    $scope.ordenarPor = function(ordem){
+        $scope.ordenarCriterio = ordem;
+        $scope.direcaoOrdenacao = !$scope.direcaoOrdenacao;
     }
 });

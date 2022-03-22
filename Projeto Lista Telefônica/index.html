@@ -8,26 +8,30 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">  
     <script src="angular/angular.js"></script>
+    <script src="angular/angular-locale_pt-br.js"></script>
     <script src="angular/angular-messages.js"></script>
     <script src="script.js"></script>    
 </head>
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h3>{{app + " do AngularJs"}}</h3>
+        <input class="form-control" type="text"  ng-model="buscarCriterio" placeholder="Insira aqui sua busca">
         <table ng-show="contatos.length>0" class="table">
             <tr>
                 <th></th>
-                <th>Nome</th>
-                <th>Telefone</th>
+                <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+                <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
                 <th>Operadora</th>
+                <th>Data</th>
                 <th></th>
             </tr>
-            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos">
+            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:buscarCriterio | orderBy:ordenarCriterio:direcaoOrdenacao">
                 <!-- <td ng-repeat="(key,value) in contato">{{value}}</td>-->
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                <td>{{contato.nome}}</td>
+                <td>{{contato.nome | limitTo:25}}</td>
                 <td>{{contato.telefone}}</td>
-                <td>{{contato.operadora.nome}}</td>
+                <td>{{contato.operadora.nome | lowercase}}</td>
+                <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
                 <td><div style="width: 20px; height: 20px;border: 2px solid" ng-style="{'background': contato.cor.codigo}"></div></td>
             </tr>
         </table>
@@ -35,14 +39,14 @@
         <form name="contatoForm">
             <input class="form-control" type="text" name="nome" ng-model="contato.nome" placeholder="Nome" ng-required="true" ng-minlength="10">
             <input class="form-control" type="text" name="telefone" ng-model="contato.telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/">
-            <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras" ng-required="true">
+            <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome + '( ' + (operadora.preco | currency) + ' )' group by operadora.categoria for operadora in operadoras | orderBy:'nome'" ng-required="true">
                 <option value="">Selecione uma operadora</option>
             </select>
             <select class="form-control" ng-model="contato.cor" ng-options="cor.nome for cor in cores" ng-required="true">
                 <option value="">Selecione uma cor</option>
             </select>
         </form>
-        <div ng-messages="contatoForm.nome.$error" class="alert alert-danger">
+        <!-- <div ng-messages="contatoForm.nome.$error" class="alert alert-danger">
             <div ng-message="required">
                 É necessário preencher o campo nome
             </div>
@@ -55,7 +59,7 @@
             </div>
             <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
                 Telefone deve ter o formato DDDDD-DDDD
-            </div>
+            </div> -->
         
         <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar Contato</button>
         <button class="btn btn-danger btn-block" ng-click="apagarContato(contatos)"  ng-if="isContatoSelecionado(contatos)">Apagar Contato</button>        
