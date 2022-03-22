@@ -11,3 +11,9 @@ table{
 .form-control{
     margin-bottom: 8px;
 }
+.selecionado{
+    background: yellow;
+}
+.negrito{
+    font-weight: bold;
+}
