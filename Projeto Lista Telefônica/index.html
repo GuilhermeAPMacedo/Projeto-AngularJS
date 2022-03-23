@@ -12,6 +12,13 @@
     <script src="lib/angular/angular-messages.js"></script>
     <script src="js/app.js"></script>    
     <script src="js/controllers/listaTelefonicaCtrl.js"></script>   
+    <script src="js/services/contatosAPIService.js"></script> 
+    <script src="js/services/operadorasAPIService.js"></script> 
+    <script src="js/config/configValue.js"></script> 
+    <script src="js/services/serialGeneratorService.js"></script>
+    <script src="js/config/serialGeneratorConfig.js"></script> 
+    <script src="js/filters/nameFilter.js"></script>  
+    <script src="js/filters/ellipsisFilter.js"></script>  
 </head>
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
@@ -20,6 +27,7 @@
         <table ng-show="contatos.length>0" class="table">
             <tr>
                 <th></th>
+                <th>Serial</th>
                 <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
                 <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
                 <th>Operadora</th>
@@ -29,7 +37,8 @@
             <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:buscarCriterio | orderBy:ordenarCriterio:direcaoOrdenacao">
                 <!-- <td ng-repeat="(key,value) in contato">{{value}}</td>-->
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                <td>{{contato.nome | limitTo:25}}</td>
+                <td>{{contato.serial}}</td>
+                <td>{{contato.nome | limitTo:25 | name | ellipsis:10}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome | lowercase}}</td>
                 <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>

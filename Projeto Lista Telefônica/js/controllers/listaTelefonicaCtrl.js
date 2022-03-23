@@ -1,9 +1,9 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope, $filter){
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope, $filter,contatosAPI,operadorasAPI,serialGenerator){
     $scope.app = "Lista Telefonica";
     $scope.contatos = [
-        {nome:$filter('uppercase')("Pedro"),telefone:"9999-8888", data: new Date(), operadora:{nome: "Vivo"},cor:{codigo: "Yellow"}},
-        {nome:$filter('lowercase')("Maria"),telefone:"8888-8888", data: new Date(), operadora:{nome: "Tim"},cor:{codigo: "blue"}},
-        {nome:"João",telefone:"8888-7777", data: new Date(), operadora:{nome: "Claro"},cor:{codigo: "Green"}}
+        {nome:$filter('uppercase')("Pedro augusto"),serial: serialGenerator.generate(),telefone:"9999-8888", data: new Date(), operadora:{nome: "Vivo"},cor:{codigo: "Yellow"}},
+        {nome:$filter('lowercase')("Maria da CONCEIçAO"),serial: serialGenerator.generate(),telefone:"8888-8888", data: new Date(), operadora:{nome: "Tim"},cor:{codigo: "blue"}},
+        {nome:"João da penha rodrigues",serial: serialGenerator.generate(),telefone:"8888-7777", data: new Date(), operadora:{nome: "Claro"},cor:{codigo: "Green"}}
     ];
     $scope.operadoras = [
         {nome:"Oi",codigo:14,categoria:"Celular", preco:"2"},
@@ -20,7 +20,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($sco
         {nome:"Preto",codigo:"#000000"}
     ];
     $scope.adicionarContato = function(contato){
-        console.log(contato)
+        contato.serial = serialGenerator.generate();
         $scope.contatos.push(angular.copy(contato));
         delete $scope.contato;
         $scope.contatoForm.$setPristine();
