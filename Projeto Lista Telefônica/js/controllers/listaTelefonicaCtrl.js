@@ -1,4 +1,3 @@
-angular.module("listaTelefonica",["ngMessages"]);
 angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope, $filter){
     $scope.app = "Lista Telefonica";
     $scope.contatos = [
