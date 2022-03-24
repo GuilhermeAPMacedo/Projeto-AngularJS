@@ -17,3 +17,18 @@ table{
 .negrito{
     font-weight: bold;
 }
+.ui-accordion-title{
+    background-color: rgb(214, 213, 213) ;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 5px;
+}
+.ui-accordion-title:hover{
+    cursor: pointer;
+}
+.ui-accordion-content{
+    background-color: beige;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}

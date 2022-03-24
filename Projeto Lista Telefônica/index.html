@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista telefônica com AngularJS</title>  
-    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">  
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-locale_pt-br.js"></script>
     <script src="lib/angular/angular-messages.js"></script>
@@ -18,11 +20,18 @@
     <script src="js/services/serialGeneratorService.js"></script>
     <script src="js/config/serialGeneratorConfig.js"></script> 
     <script src="js/filters/nameFilter.js"></script>  
-    <script src="js/filters/ellipsisFilter.js"></script>  
+    <script src="js/filters/ellipsisFilter.js"></script> 
+    <script src="js/directives/uiAlertDirective.js"></script>
+    <script src="js/directives/uiDateDirective.js"></script>
+    <script src="js/directives/uiAccordionDirective.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h3>{{app + " do AngularJs"}}</h3>
+        <ui-alert title="Ops,ocorreu um erro" message="error"></ui-alert>
+        <!-- <ui-alert title="Ops,ocorreu um erro" message="error">
+            Não foi possível carregar os dados
+        </ui-alert> Apesar de ser um escopo externo herda as propriedades de outros escopos-->
         <input class="form-control" type="text"  ng-model="buscarCriterio" placeholder="Insira aqui sua busca">
         <table ng-show="contatos.length>0" class="table">
             <tr>
@@ -49,6 +58,7 @@
         <form name="contatoForm">
             <input class="form-control" type="text" name="nome" ng-model="contato.nome" placeholder="Nome" ng-required="true" ng-minlength="10">
             <input class="form-control" type="text" name="telefone" ng-model="contato.telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/">
+            <input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="Entre com a data" ui-date>
             <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome + '( ' + (operadora.preco | currency) + ' )' group by operadora.categoria for operadora in operadoras | orderBy:'nome'" ng-required="true">
                 <option value="">Selecione uma operadora</option>
             </select>
@@ -74,6 +84,23 @@
         <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar Contato</button>
         <button class="btn btn-danger btn-block" ng-click="apagarContato(contatos)"  ng-if="isContatoSelecionado(contatos)">Apagar Contato</button>        
     </div>
-    <!-- <div ng-include="'view/footer.html'"></div> Bloqueado no Chrome por ser file:// -->
+    <!-- <ui-accordions>
+        <ui-accordion title="Accordion 1">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nisi quo veniam enim temporibus aliquam aliquid repellendus quia rem, unde aperiam reiciendis veritatis, consequuntur perspiciatis. Sint velit praesentium unde saepe.
+        </ui-accordion>
+        <ui-accordion title="Accordion 2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nisi quo veniam enim temporibus aliquam aliquid repellendus quia rem, unde aperiam reiciendis veritatis, consequuntur perspiciatis. Sint velit praesentium unde saepe.
+        </ui-accordion>
+        <ui-accordion title="Accordion 3">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nisi quo veniam enim temporibus aliquam aliquid repellendus quia rem, unde aperiam reiciendis veritatis, consequuntur perspiciatis. Sint velit praesentium unde saepe.
+        </ui-accordion>
+        <ui-accordion title="Accordion 4">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nisi quo veniam enim temporibus aliquam aliquid repellendus quia rem, unde aperiam reiciendis veritatis, consequuntur perspiciatis. Sint velit praesentium unde saepe.
+        </ui-accordion>
+        <ui-accordion title="Accordion 5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nisi quo veniam enim temporibus aliquam aliquid repellendus quia rem, unde aperiam reiciendis veritatis, consequuntur perspiciatis. Sint velit praesentium unde saepe.
+        </ui-accordion>
+    </ui-accordions> -->
+    <div ng-include="'view/footer.html'"></div>
 </body>
 </html>

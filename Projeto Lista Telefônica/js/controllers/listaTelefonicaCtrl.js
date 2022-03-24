@@ -5,6 +5,21 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($sco
         {nome:$filter('lowercase')("Maria da CONCEIçAO"),serial: serialGenerator.generate(),telefone:"8888-8888", data: new Date(), operadora:{nome: "Tim"},cor:{codigo: "blue"}},
         {nome:"João da penha rodrigues",serial: serialGenerator.generate(),telefone:"8888-7777", data: new Date(), operadora:{nome: "Claro"},cor:{codigo: "Green"}}
     ];
+    // var carregaContatos = function(){
+    //     contatosAPI.getContatos().success(function(data){
+    //         data.forEach(function(item){
+    //             item.serial = serialGenerator.generate()
+    //         });
+    //         $scope.contatos = data;
+    //     }).error(funtion(data){
+    //         $scope.error = "Não foi possível carregar os dados";
+    //     });
+    // };
+    // var carregarOperadoras = function(){
+    //     operadorasAPI.getOperadoras().success(function(data){
+    //         $scope.operadoras = data;
+    //     })
+    // }
     $scope.operadoras = [
         {nome:"Oi",codigo:14,categoria:"Celular", preco:"2"},
         {nome:"Vivo",codigo:15,categoria:"Celular", preco:"3"},
@@ -20,10 +35,16 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($sco
         {nome:"Preto",codigo:"#000000"}
     ];
     $scope.adicionarContato = function(contato){
+        contato.data = new Date();
+        // contatosAPI.saveContato(contato).success(function(data){
+        //     delete $scope.contato;
+        //     $scope.contatoForm.$setPristine();
+        //     carregaContatos();
+        // })
         contato.serial = serialGenerator.generate();
-        $scope.contatos.push(angular.copy(contato));
+        $scope.contatos.push(angular.copy(contato)); 
         delete $scope.contato;
-        $scope.contatoForm.$setPristine();
+        $scope.contatoForm.$setPristine();       
     };
     $scope.apagarContato = function(contatos){
         $scope.contatos = contatos.filter(function (contato){            
