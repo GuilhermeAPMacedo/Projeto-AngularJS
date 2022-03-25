@@ -1,5 +1,5 @@
 angular.module("listaTelefonica").service("operadorasAPI",function($http){
     this.getOperadoras = function(){
-        return $http.get("LinkAPI");
+        return $http.get("http://localhost:8000/operadoras");
     }
 });
