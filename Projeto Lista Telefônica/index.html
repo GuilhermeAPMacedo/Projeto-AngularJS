@@ -28,6 +28,7 @@
     <script src="js/directives/uiDateDirective.js"></script>
     <script src="js/interceptors/timeStampInterceptor.js"></script>
     <script src="js/config/interceptorsConfig.js"></script>
+    <script src="js/filters/upperFilter.js"></script>
     <script src="js/interceptors/loadingInterceptor.js"></script>
     <script src="js/interceptors/errorInterceptor.js"></script>
     <script src="js/config/routeConfig.js"></script>    
@@ -39,7 +40,11 @@
     </div>
     <div ng-hide="loading">
         <div ng-view></div>
-        <!-- <ui-accordions>
+        <div ng-include="'view/footer.html'"></div>
+    </div>
+</body>
+</html>
+<!-- <ui-accordions>
             <ui-accordion title="Accordion 1">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nisi quo veniam enim temporibus aliquam aliquid repellendus quia rem, unde aperiam reiciendis veritatis, consequuntur perspiciatis. Sint velit praesentium unde saepe.
             </ui-accordion>
@@ -55,8 +60,4 @@
             <ui-accordion title="Accordion 5">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nisi quo veniam enim temporibus aliquam aliquid repellendus quia rem, unde aperiam reiciendis veritatis, consequuntur perspiciatis. Sint velit praesentium unde saepe.
             </ui-accordion>
-        </ui-accordions> -->
-        <div ng-include="'view/footer.html'"></div>
-    </div>
-</body>
-</html>
+</ui-accordions> -->

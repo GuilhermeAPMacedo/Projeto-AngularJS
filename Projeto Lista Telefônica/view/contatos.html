@@ -4,7 +4,7 @@
     <!-- <ui-alert title="Ops,ocorreu um erro" message="error">
         Não foi possível carregar os dados
     </ui-alert> Apesar de ser um escopo externo herda as propriedades de outros escopos-->
-    <input class="form-control" type="text"  ng-model="buscarCriterio" placeholder="Insira aqui sua busca">
+    <input class="form-control" type="text"  ng-model="buscarCriterio" placeholder="Insira aqui sua busca" ng-model-options="{updateOn: 'default blur', debounce:{default: 500,blur: 200}}">
     <table ng-show="contatos.length>0" class="table">
         <tr>
             <th></th>
@@ -12,19 +12,21 @@
             <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
             <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
             <th>Operadoras</th>
+            <th>Preço</th>
             <th>Data</th>
         </tr>
-        <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:buscarCriterio | orderBy:ordenarCriterio:direcaoOrdenacao">
+        <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:buscarCriterio | orderBy:ordenarCriterio:direcaoOrdenacao track by contato.id">
             <!-- <td ng-repeat="(key,value) in contato">{{value}}</td>-->
-            <td><input type="checkbox" ng-model="contato.selecionado"></td>
-            <td>{{contato.serial}}</td>
-            <td><a href="#!/detalhesContato/{{contato.id+1}}">{{contato.nome | limitTo:25 | name}}</a></td>
-            <td>{{contato.telefone}}</td>
-            <td>{{contato.operadora.nome | lowercase}}</td>
-            <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td><input type="checkbox" ng-model="contato.selecionado" ng-click="verificarContatoSelecionado(contatos)"></td>
+            <td>{{::contato.serial}}</td>
+            <td><a href="#!/detalhesContato/{{contato.id}}">{{::contato.nome | limitTo:25 | name}}</a></td>
+            <td>{{::contato.telefone}}</td>
+            <td>{{::contato.operadora.nome | lowercase}}</td>
+            <td>{{::contato.operadora.precoComImposto | currency}}</td>
+            <td>{{::contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
         </tr>
     </table>
     <hr/>
     <a class="btn btn-primary btn-block" href="#!/novoContato">Novo contato</a>
-    <button class="btn btn-danger btn-block" ng-click="apagarContato(contatos)"  ng-if="isContatoSelecionado(contatos)">Apagar Contato</button>       
+    <button class="btn btn-danger btn-block" ng-click="apagarContato(contatos)"  ng-if="hasContatoSelecionado">Apagar Contato</button>       
 </div>
