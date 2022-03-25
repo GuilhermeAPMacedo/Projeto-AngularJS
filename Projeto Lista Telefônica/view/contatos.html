@@ -17,7 +17,7 @@
         </tr>
         <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:buscarCriterio | orderBy:ordenarCriterio:direcaoOrdenacao track by contato.id">
             <!-- <td ng-repeat="(key,value) in contato">{{value}}</td>-->
-            <td><input type="checkbox" ng-model="contato.selecionado" ng-click="verificarContatoSelecionado(contatos)"></td>
+            <td><input type="checkbox" ng-model="contato.selecionado" ng-selected="verificarContatoSelecionado(contatos)"></td>
             <td>{{::contato.serial}}</td>
             <td><a href="#!/detalhesContato/{{contato.id}}">{{::contato.nome | limitTo:25 | name}}</a></td>
             <td>{{::contato.telefone}}</td>

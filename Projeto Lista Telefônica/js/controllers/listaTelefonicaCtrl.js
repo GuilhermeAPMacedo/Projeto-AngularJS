@@ -1,8 +1,7 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope,contatos,operadoras,serialGenerator,$filter){
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($scope,contatos,operadoras,serialGenerator,contatosAPI,$filter){
     $scope.app = $filter('upper')("Lista Telefonica");
     $scope.contatos = contatos.data;
     $scope.operadoras = operadoras.data;
-
     var init = function(){
         calcularImpostos($scope.contatos)
         generateSerial($scope.contatos)
@@ -22,10 +21,14 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl",function($sco
         $scope.contatos = contatos.filter(function (contato){            
             if(!contato.selecionado) return contato
         })
+        contatosAPI.deleteContatos();
+        for(contato of $scope.contatos){
+            contatosAPI.saveContato(contato);
+        }
         $scope.verificarContatoSelecionado($scope.contatos);
     }
     $scope.verificarContatoSelecionado = function(contatos){
-        hasContatoSelecionado = contatos.some(function(contato){
+        $scope.hasContatoSelecionado = contatos.some(function(contato){
             return contato.selecionado;
         })
     }
